@@ -44,7 +44,7 @@ def alpha(E_r):
     E_g = 1.1
     if E_r < E_g:
         alpha_val = 0.1
-    elif E_g <= E_r and E_r <= 3.75: #2*E_g:
+    elif E_g <= E_r and E_r <= 3.75:
         alpha_val = 1
     else:
         alpha_val = 0.0207*E_r + 0.95435
@@ -179,29 +179,29 @@ sigma = np.std(choques_e)             # desviación estandar de la dist
 normal = norm.pdf(x, mu, sigma)
 
 
-fig, axs = plt.subplots(1, 2, figsize=(20, 9))
-axs[0].hist(choques_e, bins=bins,
-            density=True,
-            label="choques_e",
-            width=.6,
-            align="mid",
-            color="#56B4E9")
-axs[0].plot(x, normal,
-            ".-",
-            label="Gaussiana",
-            markersize=9,
-            color="#E69F00")
+fig, ax = plt.subplots(figsize=(11, 9))
+ax.hist(choques_e, bins=bins,
+        density=True,
+        label="choques_e",
+        width=.6,
+        align="mid",
+        color="#56B4E9")
+ax.plot(x, normal,
+        ".-",
+        label="Gaussiana",
+        markersize=9,
+        color="#E69F00")
 ###################
-axs[0].plot(x, poisson.pmf(x, mu),
-            ".-",
-            label="Poissoniana",
-            markersize=15,
-            color="#009E73")
-axs[0].legend(fontsize=19)
+ax.plot(x, poisson.pmf(x, mu),
+        ".-",
+        label="Poissoniana",
+        markersize=15,
+        color="#009E73")
+ax.legend(fontsize=19)
 fano = np.std(choques_e)**2/np.mean(choques_e)
-axs[0].text((xf+x0)/2, max(normal)/2,
-            "fano = %.3f" % fano,
-            fontsize=15)
+ax.text((xf+x0)/2, max(normal)/2,
+        "fano = %.4f\n $\mu$ = %.0f" % (fano, mu),
+        fontsize=15)
 
 # axs[2].hist(choques_n, bins=50,
 #             density=True,

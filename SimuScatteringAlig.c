@@ -71,8 +71,8 @@ int main(int argc, char *argv[]){
 	for(k = 0; k < trials; k++)
 	{
 		//double * vec_ener;
-		electrones = recursion(677, 5.2, rand_beta);
-		printf("electrones ionizados = %i\n", electrones);
+		electrones = recursion(energia, A, rand_beta);
+		printf("%i: electrones ionizados = %i\n", k, electrones);
 		//free(vec_ener);
 		fprintf(fp, "%i\n", electrones);
 	}

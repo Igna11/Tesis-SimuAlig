@@ -43,9 +43,9 @@ double Peh(double E_r, double A)
 	// ========================================================================
 	double h_omega = 0.063;				// Energía de los fonones
 	double E_g = 1.1;					// Energía del gap del Si
-	double Gamma_ph = 0;				// Inicializo la variable
-	double Gamma_eh = 0;				// Inicializo la variable
-	double P = 0; 						// Inicializo la variable
+	double Gamma_ph = 0.0;				// Inicializo la variable
+	double Gamma_eh = 0.0;				// Inicializo la variable
+	double P = 0.0; 					// Inicializo la variable
 
 	if(E_r > E_g){
 
@@ -89,7 +89,7 @@ double alpha(double E_r)
 	{ 
 		alpha_val = 0.1;
 	}
-	else if(E_g <= E_r && E_r <= 2*E_g)
+	else if(E_g <= E_r && E_r <= 3.75)
 	{ 
 		alpha_val = 1.0;
 	}
@@ -270,7 +270,7 @@ int recursion(double E_r, double A, void * rand_beta)
 	while(Energia[j] > 0.0){
 		
 		i++; // cuento la cantidad de electrones
-		i += recursion(Energia[j], 5.2, rand_beta);
+		i += recursion(Energia[j], A, rand_beta);
 		j++; // aumento el contador j para finalizar el while
 
 	}
