@@ -86,10 +86,10 @@ double alpha(double E_r)
 	double alpha_val = 0.0; 			// Inicializo la variable
 
 	if(E_r < E_g)
-	{ 
-		alpha_val = 0.1;
+	{
+		alpha_val = .1;
 	}
-	else if(E_g <= E_r && E_r <= 3.75)
+	else if(E_g <= E_r && E_r <= 2*E_g)
 	{ 
 		alpha_val = 1.0;
 	}
@@ -101,7 +101,11 @@ double alpha(double E_r)
 }
 
 
-double *evolucionar(double E_r, double A, void * rand_beta)
+double *evolucionar(double E_r,
+					double A,
+					double E_loss,
+					int atraviesa,
+					void * rand_beta)
 {
 	// ========================================================================
 	// Genera la evolución del sistema:
@@ -136,7 +140,7 @@ double *evolucionar(double E_r, double A, void * rand_beta)
 
 	// ================================
 	// inicializo el vec_ener[50] a 0
-	int i;
+	int i, j;
 	for(i = 0; i <= 50; i++)
 	{
 		vec_ener[i] = 0;
@@ -148,37 +152,89 @@ double *evolucionar(double E_r, double A, void * rand_beta)
 	
 
 	// ================================
-	// Inicio el while hasta que se
-	// acabe energia para ionizar
-	while(E_r > E_g)
-	{
-		// ===========================================
-		// Calculo la probabilidad de ionizar
-		// Genero un p_rand uniforme para comparar
-		// Calculo el valor de alpha para la beta
-		// A partir de la beta calculo E_transferido
-		p_eh = Peh(E_r, A);
-		p_rand = Random();
-		alpha_val = alpha(E_r);
-		E_transf = gsl_ran_beta(rand_beta, alpha_val, alpha_val)*(E_r - E_g);
+	// si la variable atraviesa = 0, 
+	// entonces uso el pedazo de codigo
+	// con el while, ya que no se
+	// atraviesa el material
+	if(atraviesa == 0){
 
-
-		// ===========================================
-		// Si se cumple que la probabilidad de ionizar
-		// es mayor que el p_rand y que la E_transferida
-		// es mayor que una energia A TUNEAR, entonces
-		// ionizo.
-
-		if(p_rand < p_eh && E_transf > 3.75)
+		// ================================
+		// Inicio el while hasta que se
+		// acabe energia para ionizar
+		while(E_r > E_g)
 		{
-			//printf("E_transf = %lf\n", E_transf);
-			E_r -= E_transf;
-			vec_ener[i] = E_transf;
-			i++;
+			// ===========================================
+			// Calculo la probabilidad de ionizar
+			// Genero un p_rand uniforme para comparar
+			// Calculo el valor de alpha para la beta
+			// A partir de la beta calculo E_transferido
+			p_eh = Peh(E_r, A);
+			p_rand = Random();
+			alpha_val = alpha(E_r);
+			E_transf = gsl_ran_beta(rand_beta, alpha_val, alpha_val)*(E_r - E_g);
+
+
+			// ===========================================
+			// Si se cumple que la probabilidad de ionizar
+			// es mayor que el p_rand y que la E_transferida
+			// es mayor que una energia A TUNEAR, entonces
+			// ionizo.
+
+			if(p_rand < p_eh && E_transf > 3.75)
+			{
+				//printf("E_transf = %lf\n", E_transf);
+				E_r -= E_transf;
+				vec_ener[i] = E_transf - E_loss;
+				i++;
+			}
+			else
+			{
+				E_r -= h_omega;
+			}
 		}
-		else
+	}
+	// ================================
+	// si la variable atraviesa = 1, 
+	// entonces uso el pedazo de codigo
+	// con el for, ya que sí se
+	// atraviesa el material
+	else if(atraviesa == 1)
+	{
+		
+		// ================================
+		// Inicio el while hasta que se
+		// acabe energia para ionizar
+		for(j = 0; j < 5; j++)
 		{
-			E_r -= h_omega;
+			// ===========================================
+			// Calculo la probabilidad de ionizar
+			// Genero un p_rand uniforme para comparar
+			// Calculo el valor de alpha para la beta
+			// A partir de la beta calculo E_transferido
+			p_eh = Peh(E_r, A);
+			p_rand = Random();
+			alpha_val = alpha(E_r);
+			E_transf = gsl_ran_beta(rand_beta, alpha_val, alpha_val)*(E_r - E_g);
+
+
+			// ===========================================
+			// Si se cumple que la probabilidad de ionizar
+			// es mayor que el p_rand y que la E_transferida
+			// es mayor que una energia A TUNEAR, entonces
+			// ionizo.
+
+			if(p_rand < p_eh && E_transf > 2.2)
+			{
+				//printf("E_transf = %lf\n", E_transf);
+				E_r -= E_transf;
+				vec_ener[i] = E_transf - E_loss;
+				i++;
+			}
+			else
+			{
+				E_r -= h_omega;
+			}
+
 		}
 
 	}
@@ -248,7 +304,11 @@ double *evolucionar_aux(double E_r, double A)
 	return vec_ener;
 }
 
-int recursion(double E_r, double A, void * rand_beta)
+int recursion(double E_r,
+				double A,
+				double E_loss,
+				int atraviesa,
+				void * rand_beta)
 {
 
 	// ==============================================================
@@ -264,13 +324,14 @@ int recursion(double E_r, double A, void * rand_beta)
 	int i = 0; 					// Inicializo la variable contador i
 	int j = 0;					// Inicializo la variable contador auxiliar j
 	double *Energia;			// Inicializo la variable
-	
-	Energia = evolucionar(E_r, A, rand_beta);
+
+	Energia = evolucionar(E_r, A, E_loss, atraviesa, rand_beta);
+
 	//Energia = evolucionar_aux(E_r, A);
 	while(Energia[j] > 0.0){
 		
 		i++; // cuento la cantidad de electrones
-		i += recursion(Energia[j], A, rand_beta);
+		i += recursion(Energia[j], A, E_loss, atraviesa, rand_beta);
 		j++; // aumento el contador j para finalizar el while
 
 	}

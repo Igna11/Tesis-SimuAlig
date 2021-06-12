@@ -19,18 +19,21 @@ os.chdir(directory)
 
 # =============================================================================
 # compilo el script siempre antes de correrlo porque por qué no
-os.system("gcc -Wall -o SimuAlig SimuScatteringAlig.c auxiliares_Alig.c -lm -lgsl")
+os.system("make")
 
 # =============================================================================
 # Parámetros para el programa de C
 Cprogram = "./SimuAlig "
-trials = "2000 "
 Energia = "677 "
 A = "5.2 "
+E_loss = "0.0 "
+trials = "2000 "
+atraviesa = "0 "
+
 
 # =============================================================================
 # string que escribo en consola para correr el programa de C
-path = Cprogram + Energia + A +  trials
+path = Cprogram + Energia + A + E_loss + trials + atraviesa
 # un simple cronómetro
 t0 = time.time()
 # =============================================================================
@@ -38,7 +41,7 @@ t0 = time.time()
 a = os.system(path)
 # =============================================================================
 # veo cuánto tardó en correr
-print(time.time() - t0)
+print("Tiempo: %.2f" % (time.time() - t0))
 
 # =============================================================================
 # Levanto datos con numpy y los ordeno
@@ -64,7 +67,7 @@ ax.hist(choques_e, bins=bins,
         align="mid",
         color="#56B4E9")
 ax.plot(x, normal,
-        ".-",
+        "s-",
         label="Gaussiana",
         markersize=9,
         color="#E69F00")
@@ -76,7 +79,7 @@ ax.plot(x, poisson.pmf(x, mu),
         color="#009E73")
 ax.legend(fontsize=19)
 fano = np.std(choques_e)**2/np.mean(choques_e)
-ax.text((xf+x0)/2, max(normal)/2,
+ax.text(mu+sigma*1.5, max(normal)/2,
         "fano = %.4f\n $\mu$ = %.0f" % (fano, mu),
         fontsize=15)
 
@@ -87,4 +90,4 @@ ax.text((xf+x0)/2, max(normal)/2,
 #             align="mid")
 # axs[2].legend(fontsize=15)
 plt.show()
-# fig.savefig("hist_ev_dist_2Modif_0_noatr_2e.pdf")
+fig.savefig("hist_ev_dist_2Modif_0_noatr_2e.png", transparent = True)
