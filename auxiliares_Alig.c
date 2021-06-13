@@ -204,7 +204,7 @@ double *evolucionar(double E_r,
 		// ================================
 		// Inicio el while hasta que se
 		// acabe energia para ionizar
-		for(j = 0; j < 5; j++)
+		for(j = 0; j < 10; j++)
 		{
 			// ===========================================
 			// Calculo la probabilidad de ionizar
@@ -238,7 +238,6 @@ double *evolucionar(double E_r,
 		}
 	}
 	return vec_ener;
-	free(vec_ener);
 }
 
 

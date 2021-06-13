@@ -35,7 +35,7 @@ int main(int argc, char *argv[]){
 	//===============================================
 	// Declaro variables
 	double energia, A, E_loss;
-	int k, trials, atraviesa, electrones, print_progreso;
+	int trials, atraviesa, electrones, print_progreso;
 
 
 //=============================================================================
@@ -59,6 +59,7 @@ int main(int argc, char *argv[]){
 		E_loss = 0.0;
 		trials = 2000;
 		atraviesa = 0;
+		print_progreso = 1;
 	}
 	
 
@@ -75,7 +76,7 @@ int main(int argc, char *argv[]){
 	int prog_count = 0;
 	double prog;
 
-	for(k = 0; k <= trials; k++)
+	for(int k = 0; k <= trials; k++)
 	{
 		electrones = recursion(energia, A, E_loss, atraviesa, rand_beta);
 		//printf("%i: electrones ionizados = %i\n", k, electrones);
@@ -84,7 +85,7 @@ int main(int argc, char *argv[]){
 		// Algunas cuentas para ver el progreso de la simulación
 		if(print_progreso == 1)
 		{
-			prog = prog_count*100/trials;
+			prog = prog_count*100/(double)trials;
 			printf("\rProgreso: %.2lf%% Terminado", prog);
 			prog_count++;
 			fflush(stdout);
