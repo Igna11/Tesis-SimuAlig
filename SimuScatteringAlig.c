@@ -35,7 +35,7 @@ int main(int argc, char *argv[]){
 	//===============================================
 	// Declaro variables
 	double energia, A, E_loss;
-	int k, trials, atraviesa, electrones;
+	int k, trials, atraviesa, electrones, print_progreso;
 
 
 //=============================================================================
@@ -48,6 +48,7 @@ int main(int argc, char *argv[]){
 		sscanf(argv[3], "%lf", &E_loss);
 		sscanf(argv[4], "%i", &trials);
 		sscanf(argv[5], "%i", &atraviesa);
+		sscanf(argv[6], "%i", &print_progreso);
 
 	}
 
@@ -70,28 +71,31 @@ int main(int argc, char *argv[]){
 	fprintf(fp, "electrones\n");
 
 //=============================================================================
-	// Inicializo variables para ver el progreso de la simulación
+	// Variables para ver el progreso
 	int prog_count = 0;
 	double prog;
-	// El loop de la simulación en sí misma
-	for(k = 0; k < trials; k++)
+
+	for(k = 0; k <= trials; k++)
 	{
-		//double * vec_ener;
 		electrones = recursion(energia, A, E_loss, atraviesa, rand_beta);
 		//printf("%i: electrones ionizados = %i\n", k, electrones);
-		//free(vec_ener);
 		fprintf(fp, "%i\n", electrones);
-		
-		// Progreso de la simulación
-		prog = prog_count*100/trials;
-		printf("\rProgreso: %.2f", prog);
-		prog_count++;
-		fflush(stdout);
+
+		// Algunas cuentas para ver el progreso de la simulación
+		if(print_progreso == 1)
+		{
+			prog = prog_count*100/trials;
+			printf("\rProgreso: %.2lf%% Terminado", prog);
+			prog_count++;
+			fflush(stdout);
+			printf(" ");
+		}
+
 	}
 	//printf("atraviesa mode: = %i\n", atraviesa);
 	//===============================================
 	// Cierro el archivo
 	fclose(fp);
-	printf("\nFin\n");
+	
 	return 0;
 }

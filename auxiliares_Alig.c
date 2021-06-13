@@ -236,7 +236,6 @@ double *evolucionar(double E_r,
 			}
 
 		}
-
 	}
 	return vec_ener;
 	free(vec_ener);
@@ -324,10 +323,10 @@ int recursion(double E_r,
 	int i = 0; 					// Inicializo la variable contador i
 	int j = 0;					// Inicializo la variable contador auxiliar j
 	double *Energia;			// Inicializo la variable
-
+	
 	Energia = evolucionar(E_r, A, E_loss, atraviesa, rand_beta);
-
 	//Energia = evolucionar_aux(E_r, A);
+
 	while(Energia[j] > 0.0){
 		
 		i++; // cuento la cantidad de electrones

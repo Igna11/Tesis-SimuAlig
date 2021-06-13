@@ -29,11 +29,11 @@ A = "5.2 "
 E_loss = "0.0 "
 trials = "2000 "
 atraviesa = "0 "
-
+c_prog = "1 "
 
 # =============================================================================
 # string que escribo en consola para correr el programa de C
-path = Cprogram + Energia + A + E_loss + trials + atraviesa
+path = Cprogram + Energia + A + E_loss + trials + atraviesa + c_prog
 # un simple cronómetro
 t0 = time.time()
 # =============================================================================
