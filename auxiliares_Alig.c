@@ -141,7 +141,7 @@ double *evolucionar(double E_r,
 	// ================================
 	// inicializo el vec_ener[50] a 0
 	int i, j;
-	for(i = 0; i <= 50; i++)
+	for(i = 0; i < 50; i++)
 	{
 		vec_ener[i] = 0;
 	}
@@ -280,7 +280,7 @@ double *evolucionar_aux(double E_r, double A)
 	// ================================
 	// inicializo el vec_ener[50] a 0
 	int i;
-	for(i = 0; i <= 50; i++)
+	for(i = 0; i < 50; i++)
 	{
 		vec_ener[i] = 0;
 	}
@@ -334,5 +334,6 @@ int recursion(double E_r,
 		j++; // aumento el contador j para finalizar el while
 
 	}
+	free(Energia);
 	return i;
 }
