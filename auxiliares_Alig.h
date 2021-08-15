@@ -4,18 +4,18 @@
 #define AUXILIARES_ALIG_H
 #include "math.h"
 
-double Random();	
+double Random();
+
 double Gaussiana(double mu, double sigma);
+
 double Peh(double E_r, double A); 
+
 double alpha(double E_r);
-double *evolucionar(double E_r,
-					double A,
-					double E_loss,
-					void * rand_beta);
+
+double *evolucionar(double E_r,	double A, double E_loss, void * rand_beta);
+
 double *evolucionar_aux(double E_r, double A);
-int recursion(double E_r,
-				double A,
-				double E_loss,
-				void * rand_beta);
+
+int recursion(double E_r, double A, double E_loss, void * rand_beta);
 
 #endif

@@ -101,10 +101,7 @@ double alpha(double E_r)
 }
 
 
-double *evolucionar(double E_r,
-					double A,
-					double E_loss,
-					void * rand_beta)
+double *evolucionar(double E_r, double A, double E_loss, void * rand_beta)
 {
 	// ========================================================================
 	// Genera la evolución del sistema:
@@ -245,10 +242,7 @@ double *evolucionar_aux(double E_r, double A)
 	return vec_ener;
 }
 
-int recursion(double E_r,
-				double A,
-				double E_loss,
-				void * rand_beta)
+int recursion(double E_r, double A, double E_loss, void * rand_beta)
 {
 
 	// ==============================================================

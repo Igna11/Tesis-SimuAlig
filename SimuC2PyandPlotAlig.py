@@ -26,7 +26,7 @@ os.system("make")
 Cprogram = "./SimuAlig "
 Energia = "677 "
 A = "5.2 "
-E_loss = "0.0 "
+E_loss = ".21 "
 trials = "5000 "
 c_prog = "1 "
 
