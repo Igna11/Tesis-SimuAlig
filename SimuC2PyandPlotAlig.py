@@ -27,13 +27,12 @@ Cprogram = "./SimuAlig "
 Energia = "677 "
 A = "5.2 "
 E_loss = "0.0 "
-trials = "2000 "
-atraviesa = "0 "
+trials = "5000 "
 c_prog = "1 "
 
 # =============================================================================
 # string que escribo en consola para correr el programa de C
-path = Cprogram + Energia + A + E_loss + trials + atraviesa + c_prog
+path = Cprogram + Energia + A + E_loss + trials + c_prog
 # un simple cronómetro
 t0 = time.time()
 # =============================================================================
@@ -90,4 +89,4 @@ ax.text(mu+sigma*1.5, max(normal)/2,
 #             align="mid")
 # axs[2].legend(fontsize=15)
 plt.show()
-fig.savefig("hist_ev_dist_2Modif_0_noatr_2e.png", transparent = True)
+# fig.savefig("hist_ev_dist_SIatr_fononOFF_loop3.png", transparent = True)

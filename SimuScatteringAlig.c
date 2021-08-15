@@ -35,7 +35,7 @@ int main(int argc, char *argv[]){
 	//===============================================
 	// Declaro variables
 	double energia, A, E_loss;
-	int trials, atraviesa, electrones, print_progreso;
+	int trials, electrones, print_progreso;
 
 
 //=============================================================================
@@ -47,8 +47,7 @@ int main(int argc, char *argv[]){
 		sscanf(argv[2], "%lf", &A);
 		sscanf(argv[3], "%lf", &E_loss);
 		sscanf(argv[4], "%i", &trials);
-		sscanf(argv[5], "%i", &atraviesa);
-		sscanf(argv[6], "%i", &print_progreso);
+		sscanf(argv[5], "%i", &print_progreso);
 
 	}
 
@@ -58,7 +57,6 @@ int main(int argc, char *argv[]){
 		A = 5.2;
 		E_loss = 0.0;
 		trials = 2000;
-		atraviesa = 0;
 		print_progreso = 1;
 	}
 	
@@ -78,7 +76,7 @@ int main(int argc, char *argv[]){
 
 	for(int k = 0; k <= trials; k++)
 	{
-		electrones = recursion(energia, A, E_loss, atraviesa, rand_beta);
+		electrones = recursion(energia, A, E_loss, rand_beta);
 		//printf("%i: electrones ionizados = %i\n", k, electrones);
 		fprintf(fp, "%i\n", electrones);
 
