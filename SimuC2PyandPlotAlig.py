@@ -49,38 +49,43 @@ choques_e = datos
 
 # =============================================================================
 # Armo los gráficos
-x0 = min(choques_e)         # desde donde grafico
-xf = max(choques_e)         # hasta donde grafico
-x = np.arange(x0, xf, 1)    # vector para graficar la gaussiana
-bins = len(x)               # cantidad de bines igual a la longitud del vector
-mu = np.mean(choques_e)     # media de la distribución
-sigma = np.std(choques_e)   # desviación estandar de la dist
+x0 = min(choques_e)  # desde donde grafico
+xf = max(choques_e)  # hasta donde grafico
+x = np.arange(x0, xf, 1)  # vector para graficar la gaussiana
+bins = len(x)  # cantidad de bines igual a la longitud del vector
+mu = np.mean(choques_e)  # media de la distribución
+sigma = np.std(choques_e)  # desviación estandar de la dist
 normal = norm.pdf(x, mu, sigma)
 
 
 fig, ax = plt.subplots(figsize=(11, 9))
-ax.hist(choques_e, bins=bins,
-        density=True,
-        label="choques_e",
-        width=.6,
-        align="mid",
-        color="#56B4E9")
-ax.plot(x, normal,
-        "s-",
-        label="Gaussiana",
-        markersize=9,
-        color="#E69F00")
+ax.hist(
+    choques_e,
+    bins=bins,
+    density=True,
+    label="Ionización de $e^{-}-h$",
+    width=0.6,
+    align="mid",
+    color="#56B4E9",
+)
+ax.plot(x, normal, "s-", label="Gaussiana", markersize=9, color="#E69F00")
 ###################
-ax.plot(x, poisson.pmf(x, mu),
-        ".-",
-        label="Poissoniana",
-        markersize=15,
-        color="#009E73")
+ax.plot(
+    x,
+    poisson.pmf(x, mu),
+    ".-",
+    label="Poissoniana",
+    markersize=15,
+    color="#009E73",
+)
 ax.legend(fontsize=19)
-fano = np.std(choques_e)**2/np.mean(choques_e)
-ax.text(mu+sigma*1.5, max(normal)/2,
-        "fano = %.4f\n $\mu$ = %.0f" % (fano, mu),
-        fontsize=15)
+fano = np.std(choques_e) ** 2 / np.mean(choques_e)
+ax.text(
+    mu + sigma * 1.5,
+    max(normal) / 2,
+    "fano = %.4f\n $\mu$ = %.0f" % (fano, mu),
+    fontsize=15,
+)
 
 # axs[2].hist(choques_n, bins=50,
 #             density=True,

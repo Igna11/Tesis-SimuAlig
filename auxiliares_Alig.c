@@ -93,6 +93,10 @@ double alpha(double E_r)
 	{ 
 		alpha_val = 1.0;
 	}
+	else if(3.4 <= E_r && E_r <= 4.2)
+	{
+		alpha_val = 1.0;
+	}
 	else
 	{
 		alpha_val = 0.0207*E_r + 0.95435;
