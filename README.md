@@ -15,11 +15,6 @@ son:
     datos_simulacion_alig.txt   |
 --------------------------------|-------------------------------------
 
-Se supone que ambos hacen exactamente lo mismo, sin embargo, en C me es más
-difícil saber como se está manejando el malloc de memoria donde se guardan
-las energías. Pero la idea con la que estan codeados ambos es idéntica. Se
-hace una recursión para contar todos los electrones que son ionizados.
-
-
-
-
+Se supone que ambos hacen exactamente lo mismo, sin embargo. Pero la 
+idea con la que estan codeados ambos es idéntica. Se hace una recursión
+para contar todos los electrones que son ionizados.
