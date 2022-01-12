@@ -1,14 +1,3 @@
-//=============================================================================
-// 02/06/2021 V1 funcional: No sé bien como funcionara el free(vec_ener) pero
-// 							no debería romper nada. 
-//
-//						=======================================================
-//						=======================================================
-//						//  OJO! 20000 trials equivalen a 1.6gb de memoria!! //
-//						//  (veinte mil trials equivalena 1.6gb de memoria!!)//
-//						=======================================================
-//						=======================================================					
-//		
 /* gcc -Wall -o SimuAlig SimuScatteringAlig.c auxiliares_Alig.c -lm -lgsl*/
 #include <stdio.h>
 #include <stdlib.h>

@@ -25,9 +25,9 @@ os.system("make")
 # Parámetros para el programa de C
 Cprogram = "./SimuAlig "
 Energia = "677 "
-A = "5.2 "
-E_loss = ".21 "
-trials = "5000 "
+A = "20 "
+E_loss = "0 "
+trials = "10000 "
 c_prog = "1 "
 
 # =============================================================================
@@ -46,7 +46,7 @@ print("Tiempo: %.2f" % (time.time() - t0))
 # Levanto datos con numpy y los ordeno
 datos = np.loadtxt("datos_simulacion_alig.txt", skiprows=1)
 choques_e = datos
-
+np.savetxt("Distribucion_carga_simulada_10k.txt", choques_e)
 # =============================================================================
 # Armo los gráficos
 x0 = min(choques_e)  # desde donde grafico
@@ -63,18 +63,18 @@ ax.hist(
     choques_e,
     bins=bins,
     density=True,
-    label="Ionización de $e^{-}-h$",
+    label="Carga ionizada",
     width=0.6,
     align="mid",
     color="#56B4E9",
 )
-ax.plot(x, normal, "s-", label="Gaussiana", markersize=9, color="#E69F00")
+ax.plot(x, normal, "s-", label="Ajuste Gaussiano", markersize=9, color="#E69F00")
 ###################
 ax.plot(
     x,
     poisson.pmf(x, mu),
     ".-",
-    label="Poissoniana",
+    label="Ajuste Poissoniano",
     markersize=15,
     color="#009E73",
 )
@@ -83,15 +83,12 @@ fano = np.std(choques_e) ** 2 / np.mean(choques_e)
 ax.text(
     mu + sigma * 1.5,
     max(normal) / 2,
-    "fano = %.4f\n $\mu$ = %.0f" % (fano, mu),
+    "Fano = %.4f\n $\mu$ = %.0f" % (fano, mu),
     fontsize=15,
 )
 
-# axs[2].hist(choques_n, bins=50,
-#             density=True,
-#             label="choques_n",
-#             width=.6,
-#             align="mid")
-# axs[2].legend(fontsize=15)
+ax.tick_params(axis='both', which='major', labelsize=15)
+
+
 plt.show()
 # fig.savefig("hist_ev_dist_SIatr_fononOFF_loop3.png", transparent = True)
