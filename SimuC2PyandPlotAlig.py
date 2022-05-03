@@ -24,11 +24,11 @@ os.system("make")
 # =============================================================================
 # Parámetros para el programa de C
 Cprogram = "./SimuAlig "
-Energia = "677 "
-A = "20 "
+Energia = "1570 "
+A = "5.2 "
 E_loss = "0 "
-trials = "10000 "
-c_prog = "1 "
+trials = "1000 "
+c_prog = "1 "  # 1 muestra el progreso 0 no muestra nada
 
 # =============================================================================
 # string que escribo en consola para correr el programa de C
@@ -58,12 +58,12 @@ sigma = np.std(choques_e)  # desviación estandar de la dist
 normal = norm.pdf(x, mu, sigma)
 
 
-fig, ax = plt.subplots(figsize=(11, 9))
+fig, ax = plt.subplots(figsize=(9, 5))
 ax.hist(
     choques_e,
     bins=bins,
     density=True,
-    label="Carga ionizada",
+    label="Eventos",
     width=0.6,
     align="mid",
     color="#56B4E9",
@@ -78,7 +78,7 @@ ax.plot(
     markersize=15,
     color="#009E73",
 )
-ax.legend(fontsize=19)
+ax.legend(fontsize=12)
 fano = np.std(choques_e) ** 2 / np.mean(choques_e)
 ax.text(
     mu + sigma * 1.5,
@@ -87,8 +87,9 @@ ax.text(
     fontsize=15,
 )
 
-ax.tick_params(axis='both', which='major', labelsize=15)
-
+#ax.tick_params(axis='both', which='major', labelsize=15)
+ax.set_ylabel("Eventos", fontsize=15)
+ax.set_xlabel("Electrones", fontsize=15)
 
 plt.show()
 # fig.savefig("hist_ev_dist_SIatr_fononOFF_loop3.png", transparent = True)

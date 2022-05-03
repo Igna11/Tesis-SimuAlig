@@ -23,12 +23,12 @@ double Gaussiana(double mu, double sigma)
 	int n = 10;
 	double z = 0;
 	
-	for(i = 0; i<n; i++)
+	for(i = 0; i < n; i++)
 	{
 		z += Random();
 	}
-	z = sqrt(12*(double)n)*(z/(double)n - 0.5);
-	return z*sigma+mu;
+	z = sqrt(12 * (double)n) * (z / (double)n - 0.5);
+	return z * sigma + mu;
 }
 
 double Peh(double E_r, double A)
@@ -49,10 +49,10 @@ double Peh(double E_r, double A)
 
 	if(E_r > E_g){
 
-		Gamma_ph = 105*pow((E_r - h_omega), 1/2.0);
-		Gamma_eh = 2*M_PI*pow((E_r - h_omega), 7/2.0);
+		Gamma_ph = 105 * pow((E_r - h_omega), 1 / 2.0);
+		Gamma_eh = 2 * M_PI * pow((E_r - h_omega), 7 / 2.0);
 
-		P = 1/(1 + A*Gamma_ph/Gamma_eh);
+		P = 1 / (1 + A * Gamma_ph / Gamma_eh);
 	}
 	else{
 
@@ -160,7 +160,7 @@ double *evolucionar(double E_r, double A, double E_loss, void * rand_beta)
 		p_eh = Peh(E_r, A);
 		p_rand = Random();
 		alpha_val = alpha(E_r);
-		E_transf = gsl_ran_beta(rand_beta, alpha_val, alpha_val)*(E_r - E_g);
+		E_transf = gsl_ran_beta(rand_beta, alpha_val, alpha_val) * (E_r - E_g);
 
 
 		// ======================================================
