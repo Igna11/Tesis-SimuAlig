@@ -24,15 +24,17 @@ os.system("make")
 # =============================================================================
 # Parámetros para el programa de C
 Cprogram = "./SimuAlig "
-Energia = "1570 "
-A = "5.2 "
+Energia = "677 "
+A = "20 "
 E_loss = "0 "
-trials = "1000 "
+trials = "5000 "
 c_prog = "1 "  # 1 muestra el progreso 0 no muestra nada
 
+path_list = [Cprogram, Energia, A, E_loss, trials, c_prog]
 # =============================================================================
 # string que escribo en consola para correr el programa de C
-path = Cprogram + Energia + A + E_loss + trials + c_prog
+#path = Cprogram + Energia + A + E_loss + trials + c_prog
+path = "".join(path_list)
 # un simple cronómetro
 t0 = time.time()
 # =============================================================================
@@ -41,12 +43,20 @@ a = os.system(path)
 # =============================================================================
 # veo cuánto tardó en correr
 print("Tiempo: %.2f" % (time.time() - t0))
-
 # =============================================================================
 # Levanto datos con numpy y los ordeno
 datos = np.loadtxt("datos_simulacion_alig.txt", skiprows=1)
 choques_e = datos
-np.savetxt("Distribucion_carga_simulada_10k.txt", choques_e)
+DATAFILE_NAME = "testing.txt"
+if int(Energia) == 677:
+    DATAFILE_NAME = f"F_E{int(Energia)}_A{float(A)}_E_loss{int(E_loss)}_Trials{int(trials)}.txt"
+if int(Energia) == 1500:
+    DATAFILE_NAME = f"Al_E{int(Energia)}_A{float(A)}_E_loss{int(E_loss)}_Trials{int(trials)}.txt"
+    os.system("rm datos_simulacion_alig.txt")
+else:
+    #DATAFILE_NAME = f"Al_E{int(Energia)}_A{float(A)}_E_loss{int(E_loss)}_Trials{int(trials)}.txt"
+    os.system("rm datos_simulacion_alig.txt")
+np.savetxt(DATAFILE_NAME, choques_e)
 # =============================================================================
 # Armo los gráficos
 x0 = min(choques_e)  # desde donde grafico
